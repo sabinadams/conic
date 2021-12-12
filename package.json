@@ -1,0 +1,29 @@
+{
+  "name": "conic",
+  "version": "1.0.0",
+  "description": "This library provides a Prisma Client manager that simplifies handling multi-tenant connections on multiple prisma clients",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node ./lib/index.ts"
+  },
+  "keywords": [
+    "prisma",
+    "prisma-client",
+    "multi-tenancy"
+  ],
+  "author": "Sabin Adams",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^16.11.12",
+    "prisma": "^3.2.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.2.1"
+  },
+  "directories": {
+    "lib": "lib"
+  }
+}
