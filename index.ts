@@ -1,4 +1,11 @@
 import { PrismaClient } from '@prisma/client'
-import { Conic, ConicManager } from './lib'
+import { ConicManager } from './lib'
 
-const test = new Conic(PrismaClient).getTenant('lskdf')
+const Manager = new ConicManager([
+    {
+        client: PrismaClient,
+        name: 'crm'
+    }
+])
+
+Manager.client<PrismaClient>('crm').getTenant('slkdjf')

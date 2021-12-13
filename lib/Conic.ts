@@ -1,20 +1,12 @@
+import { BasePrismaClient, BasicClass } from 'models'
+
 interface SnapshotContext {
     tenant: string;
     product: string;
     env: string;
 }
 
-type BasePrismaClientInstance = {
-    $on: Function;
-    $disconnect: Function;
-    $connect: Function;
-} 
-
-type BasicClass<T> = {
-    new(): T
-}
-
-export class Conic<PrismaClientInstance> {
+export class Conic<PrismaClientInstance extends BasePrismaClient> {
 
     private CONNECTIONS: Record<string, PrismaClientInstance> = {}
     
@@ -27,7 +19,7 @@ export class Conic<PrismaClientInstance> {
     private generateClient(ctx: SnapshotContext): PrismaClientInstance {
 
         //@ts-ignore
-        const client: BasePrismaClientInstance & PrismaClientInstance = new this.client({
+        const client: PrismaClientInstance = new this.client({
             datasources: { db: { url: process.env.DATABASE_URL } },
         })
 
@@ -50,7 +42,7 @@ export class Conic<PrismaClientInstance> {
     }
 
     public get prisma(): PrismaClientInstance | null {
-        if ( !this.autoTenantStrategy ) return null;
+        if ( !this.autoTenantStrategy ) throw Error(`Conic: You cannot use the prisma accessor if you have not set up an autoTenantStrategy`)
         const instance: string = this.autoTenantStrategy()
         return this.getTenant( instance )
     }

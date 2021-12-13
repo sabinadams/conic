@@ -1,4 +1,4 @@
-import type { ClientConfig } from './models'
+import type { ClientConfig, BasePrismaClient } from './models'
 import { Conic } from './Conic'
 
 type ConicManagerConfigObject = {
@@ -25,7 +25,7 @@ export class ConicManager {
         }))
     }
     
-    client<T>( name: string ): Conic<T> {
+    client<T extends BasePrismaClient>( name: string ): Conic<T> {
         const config = this.clientConfigurations.find( config => config.name === name )
         if ( !config ) throw Error(`Conic: Client named ${name} not found`)
         return config.manager
